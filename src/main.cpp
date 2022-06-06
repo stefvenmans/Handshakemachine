@@ -18,6 +18,9 @@ int fastSpeed = 2500;
 int slowAccel = 200;
 int fastAccel = 1000;
 int handReachTresholdCm = 25;
+int handReachTimer = 10000; //10 seconds
+
+int prevTime = 0;
 
 // Defines variables for ultrasonic sensor
 long duration; // variable for the duration of sound wave travel
@@ -84,6 +87,12 @@ void loop() {
       distance = duration * 0.034 / 2; // Speed of sound wave divided by 2 (go and back)
       // Displays the distance on the Serial Monitor
 
+      if(millis()-prevTime>handReachTimer){
+        state = INIT_MACHINE;
+        break;
+      }
+      else prevTime = millis();
+      
       if(distance <= handReachTresholdCm){
         stepper.setMaxSpeed(fastSpeed);
         stepper.setAcceleration(fastAccel);
