@@ -93,7 +93,6 @@ void loop() {
         state = INIT_MACHINE;
         break;
       }
-      else prevTime = millis();
       
       if(distance <= handReachTresholdCm){
         stepper.setMaxSpeed(fastSpeed);
