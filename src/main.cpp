@@ -71,6 +71,7 @@ void loop() {
         stepper.moveTo(handReachedPosition);
         stepper.runToPosition();
         state = HAND_REACHED;
+        prevTime = millis();
       }
     break;
     case HAND_REACHED: // Check ultra sonic sensor, if distance below treshold move hand up then go to next state
