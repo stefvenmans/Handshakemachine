@@ -55,6 +55,7 @@ void setup() {
 
   // Setup for PIR sensor
   pinMode(pirPin, INPUT);
+  Serial.begin(9600);
 }
 
 void loop() {
@@ -72,6 +73,8 @@ void loop() {
         stepper.runToPosition();
         state = HAND_REACHED;
         prevTime = millis();
+        Serial.print("MACHINE_READY :prev time= ");
+        Serial.println(prevTime);
       }
     break;
     case HAND_REACHED: // Check ultra sonic sensor, if distance below treshold move hand up then go to next state
@@ -89,6 +92,11 @@ void loop() {
       // Displays the distance on the Serial Monitor
 
       if(millis()-prevTime>handReachTimer){
+        Serial.print("HAND_REACHED :millis()= ");
+        Serial.println(millis());
+        Serial.print("HAND_REACHED :prev time= ");
+        Serial.println(prevTime);
+        
         attachInterrupt(digitalPinToInterrupt(endSwitchPin), endSwitchTouched, LOW);
         state = INIT_MACHINE;
         break;
