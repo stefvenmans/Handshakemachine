@@ -89,6 +89,7 @@ void loop() {
       // Displays the distance on the Serial Monitor
 
       if(millis()-prevTime>handReachTimer){
+        attachInterrupt(digitalPinToInterrupt(endSwitchPin), endSwitchTouched, LOW);
         state = INIT_MACHINE;
         break;
       }
